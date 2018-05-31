@@ -14,7 +14,7 @@ create table user (
 );
 
 create table computer (
-    mid integer auto_increment,
+    cid integer auto_increment,
     name varchar(64),
     description varchar(512),
     picture varchar(192),
@@ -27,6 +27,7 @@ create table computer (
 insert into user (username, password) values('JPModified', 'yes');
 insert into user (username, password) values('Singularity', 'yes');
 insert into user (username, password) values('BitWit', 'yes');
+insert into computer (name, description, picture, entrycreatorfk) values ('Test','test','./src/test1McK','5');
 
 insert into computer 
 set name = 'JPModifieds Computer',
@@ -44,14 +45,4 @@ insert into computer
 set name = 'BitWits Personal Build',
 	description = 'Personal Computer of BitWit. lorem ipsum ',
 	picture = './src/3BitWit.jpg',
-    entrycreatorfk = 3;
-    
-
-create user 'moviesql'@'localhost' identified by 'toor';
-grant select, insert on movie2k.* to moviesql@localhost;
-flush privileges;
-
-select * from user;
-insert ignore into user (username, password) values('hash4', 'yes');
-INSERT INTO `movie` (`name`, `subtitle`, `description`, `trailer`, `genrefk`, `entrycreatorfk`) VALUES ('dass', 'dsad', 'dsadasd', 'addsa', '32132', 3, 10);
-INSERT INTO `movie` (`mid`, `name`, `subtitle`, `description`, `trailer`, `genrefk`, `entrycreatorfk`) VALUES (NULL, 'Kimi no na wa', 'veri gud', 'Is a timewarping lovestory', 'https:yourapudopa', '1', '10');
+    entrycreatorfk = 3; 
