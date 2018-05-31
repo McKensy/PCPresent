@@ -3,6 +3,9 @@
     @$mid = $_SESSION['saved'];
     @$username = $_SESSION['username'];
     $activenav = 'index';
+    if(!isset($username)){
+        $username = 'Gast';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -26,9 +29,8 @@
     <body class="grey darken-4">
         <?php include './navbar.php'; ?>
         <div class="container">
-            <div class="card-panel">
-                <p> make showcase </p>
-                <img src="" alt="">
+            <div class="card-panel light-blue lighten-5">
+            
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
