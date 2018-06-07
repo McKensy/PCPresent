@@ -2,6 +2,7 @@
     session_start();
     include './pdo.php';
     @$username = $_SESSION['username'];
+    unset($_SESSION['errormessage']);
     $activenav = 'index';
 ?>
 <!DOCTYPE html>
@@ -16,11 +17,11 @@
             <?php
                 $sql = "SELECT c.name, c.description, c.picture, u.username FROM computer as c, user as u WHERE c.entrycreatorfk = u.uid";
                 foreach ($pdo->query($sql) as $row) {
-                    echo "<div class=\"card-panel col s12 m12 l12 left\">";
+                    echo "<div class=\"card-panel col s12 m12 l12 center\">";
                     echo "<h3 class=\"center-align\">".$row['name']."</h3>";
                     echo "<h5 class=\"center-align\">".$row['description']."</h5>";
-                    echo "<img src=\"".$row['picture']."\" alt=\"./src/imgnotfound.jpg\" style=\"width: 80%;\">";
-                    echo "<blockquote>".$row['username']."</blockquote></div>";
+                    echo "<img class=\"center\" src=\"".$row['picture']."\" alt=\"./src/imgnotfound.jpg\" style=\"width: 80%;\">";
+                    echo "<blockquote>Uploaded by: ".$row['username']."</blockquote></div>";
                     /*echo "<p>Date of refresh: ".date("d.m.Y H:i:s")."<p>";*/
                 }
             ?>

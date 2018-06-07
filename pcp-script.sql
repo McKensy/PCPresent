@@ -27,7 +27,7 @@ create table computer (
 insert into user (username, password) values('JPModified', 'yes');
 insert into user (username, password) values('Singularity', 'yes');
 insert into user (username, password) values('BitWit', 'yes');
-insert into computer (name, description, picture, entrycreatorfk) values ('Test','test','./src/test1McK','5');
+
 
 insert into computer 
 set name = 'JPModifieds Computer',
@@ -46,3 +46,15 @@ set name = 'BitWits Personal Build',
 	description = 'Personal Computer of BitWit. lorem ipsum ',
 	picture = './src/3BitWit.jpg',
     entrycreatorfk = 3; 
+    
+    
+#SCRIPT TESTING BELOW
+
+insert into computer (name, description, picture, entrycreatorfk) values ('Test','test','./src/test1McK','5');
+
+select uid from user where username = 'in16kejo';
+
+SELECT * FROM computer ORDER BY RAND() LIMIT 4;
+
+SELECT c.name, c.picture, u.username FROM computer as c, user as u WHERE c.entrycreatorfk = u.uid  ORDER BY RAND() LIMIT 4;
+

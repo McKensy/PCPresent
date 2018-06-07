@@ -8,10 +8,9 @@
   <div class="nav-wrapper light-blue">
     <a href="./index.php" class="brand-logo center" style="margin-left:10px"><i class="material-icons">desktop_windows</i>PCP</a>
     <a href="#!" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    <?php if(!isset($username)){echo "<a class=\"white-text\" href=\"login.php\"> Login";}else{echo "<a class=\"white-text\"href=\"logout.php\">Logout</a>";}?>
     <ul class="left hide-on-med-and-down">
-      <!-- Dropdown Trigger -->
       <li><a class="dropdown-trigger" href="#!" data-target="dropdown-desktop"><?php if(!isset($username)){echo "Guest";}else{echo $username;} ?> <i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><?php if(!isset($username)){echo "<a class=\"white-text\" href=\"login.php\"> Login";}else{echo "<a class=\"white-text\"href=\"logout.php\">Logout</a>";}?></li>
     </ul>
   </div>
 </nav>
@@ -22,8 +21,8 @@
 </ul>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script>
-    $(document).ready(function(){
-        $(".dropdown-trigger").dropdown();
-        $('.sidenav').sidenav();
-    });
+  $(document).ready(function(){
+    $(".dropdown-trigger").dropdown();
+    $('.sidenav').sidenav();
+  });
 </script>

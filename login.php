@@ -17,6 +17,11 @@
             $statement = $pdo->prepare($registersql);
             $statement->execute(array($_POST['username'], $password));
             $_SESSION['username'] = $_POST['username'];
+            $getuserid = "select uid from user where username = '$username';";
+            foreach ($pdo->query($getuserid) as $row) {
+                $_SESSION["userid"] = (int)$row['uid'];
+            }
+            unset($_SESSION['errormessage']);
             header("location: ./index.php");
             die("Login successful.");
         }
@@ -30,6 +35,11 @@
         while($row = $statement->fetch()) {
             if(password_verify($_POST['password'], $row['password'])){
                 $_SESSION['username'] = $_POST['username'];
+                $getuserid = "select uid from user where username = '$username';";
+                foreach ($pdo->query($getuserid) as $row) {
+                    $_SESSION["userid"] = (int)$row['uid'];
+                }
+                unset($_SESSION['errormessage']);
                 header("location: ./index.php");
                 die("Login successful.");
             }else {
@@ -37,6 +47,8 @@
                 header("location: ./login.php");
             }
         }
+        $_SESSION['errormessage'] = "Wrong Username or Password!";
+        header("location: ./login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -55,10 +67,10 @@
         <div class="nav-wrapper light-blue">
             <a href="./index.php" class="brand-logo center" style="margin-left:10px"><i class="material-icons">desktop_windows</i>PCP</a>
             <a href="#!" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <?php if(!isset($username)){echo "<a class=\"white-text\" href=\"login.php\"> Login";}else{echo "<a class=\"white-text\"href=\"logout.php\">Logout</a>";}?>
             <ul class="left hide-on-med-and-down">
             <!-- Dropdown Trigger -->
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown-desktop"><?php if(!isset($username)){echo "Guest";}else{echo "ayy $username";} ?> <i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown-desktop"><?php if(!isset($username)){echo "Guest";}else{echo "$username";} ?> <i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><?php if(!isset($username)){echo "<a class=\"white-text\" href=\"login.php\"> Login";}else{echo "<a class=\"white-text\"href=\"logout.php\">Logout</a>";}?></li>
             </ul>
         </div>
     </nav>

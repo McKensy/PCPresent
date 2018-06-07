@@ -2,11 +2,11 @@
     session_start();
     include './pdo.php';
     @$username = $_SESSION['username'];
-    $getuserid = "select u.uid from computer as c, user as u where c.entrycreatorfk = u.uid and u.username = '$username';";
-    foreach ($pdo->query($getuserid) as $row) {
-        $_SESSION["userid"] = (int)$row['uid'];
-    }
     $userid = (int)$_SESSION["userid"];
+    if(!isset($_SESSION["userid"])) {
+        $_SESSION['errormessage'] = "You need to Login or Register before adding a PC!";
+        header("location: ./login.php");
+    }
     if(isset($_POST["Submit"])) {
         $insertpcsql = "INSERT INTO `computer` (`cid`, `name`, `description`, `picture`, `entrycreatorfk`) VALUES (?, ?, ?, ?, ?);";
         $statement = $pdo->prepare($insertpcsql);
@@ -35,11 +35,6 @@
               </form>
           </div>
         </div>
-        <?php
-        function alert($msg) {
-            echo "<script type='text/javascript'>alert('$msg');</script>";
-        }
-        ?>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     </body>
 </html>
