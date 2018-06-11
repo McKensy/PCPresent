@@ -17,12 +17,7 @@
             $statement = $pdo->prepare($registersql);
             $statement->execute(array($_POST['username'], $password));
             $_SESSION['username'] = $_POST['username'];
-            $getuserid = "select uid from user where username = '$username';";
-            foreach ($pdo->query($getuserid) as $row) {
-                $_SESSION["userid"] = (int)$row['uid'];
-            }
-            unset($_SESSION['errormessage']);
-            header("location: ./index.php");
+            header("location: ./login-success.php");
             die("Login successful.");
         }
     }
@@ -35,12 +30,7 @@
         while($row = $statement->fetch()) {
             if(password_verify($_POST['password'], $row['password'])){
                 $_SESSION['username'] = $_POST['username'];
-                $getuserid = "select uid from user where username = '$username';";
-                foreach ($pdo->query($getuserid) as $row) {
-                    $_SESSION["userid"] = (int)$row['uid'];
-                }
-                unset($_SESSION['errormessage']);
-                header("location: ./index.php");
+                header("location: ./login-success.php");
                 die("Login successful.");
             }else {
                 $_SESSION['errormessage'] = "Wrong Username or Password!";

@@ -4,6 +4,7 @@
     @$mid = $_SESSION['saved'];
     @$username = $_SESSION['username'];
     unset($_SESSION['errormessage']);
+    $_SESSION['activenav'] = "home";
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +17,6 @@
         <?php include './navbar.php'; ?>
         <div class="container">
             <div class="card-panel">
-                <?php
-                    
-                ?>
                 <h3 class="center-align">Personal Computer Presenter</h3>
                 <blockquote>Welcome to my PHP-Project PCP, short for Personal Computer Presenter. The Website provides a platform, to show other users your PC, the spezifications and maybe even the story behind it. ADD YOUR PC TODAY!!!11</blockquote>
                 <h5>Featured PCs:<h5>
@@ -46,5 +44,10 @@
                 $('.slider').slider();
             });
         </script>
+        <style>
+            .slider .indicators .indicator-item.active{
+                background-color: #03a9f4;
+            }
+        </style>
     </body>
 </html>
