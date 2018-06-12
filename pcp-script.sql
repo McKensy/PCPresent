@@ -65,3 +65,4 @@ INSERT INTO computer (cid, name, description, picture, created, entrycreatorfk) 
 
 SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d/%m/%Y %H:%i') as created FROM computer as c, user as u WHERE c.entrycreatorfk = u.uid;
 
+SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d.%m.%Y %H:%i') as created FROM computer as c, user as u WHERE c.entrycreatorfk = u.uid AND (c.name LIKE '%few%' OR c.description LIKE '%fwe%');

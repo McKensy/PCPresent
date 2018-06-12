@@ -33,7 +33,7 @@
                         <input type="text" name="pcname" class="validate" id="pcname" maxlength="32" required/>
                         <label for="pcname">The name of your PC</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s6"> <!-- TODO: Upload picture and save it locally -->
                         <input type="text" name="pcpicture" class="validate" id="pcpicture" maxlength="192" required/>
                         <label for="pcpicture">Link to the picture</label>
                     </div>
