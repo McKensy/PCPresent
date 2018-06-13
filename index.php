@@ -1,7 +1,6 @@
 <?php
     session_start();
     include "./pdo.php";
-    @$mid = $_SESSION['saved'];
     @$username = $_SESSION['username'];
     unset($_SESSION['errormessage']);
     $_SESSION['activenav'] = "home";
@@ -22,8 +21,8 @@
                 <h5>Featured PCs:<h5>
                 <div class="slider">
                     <ul class="slides">
-                        <?php 
-                            $sql = "SELECT c.name, c.picture, u.username FROM computer as c, user as u WHERE c.entrycreatorfk = u.uid  ORDER BY RAND() LIMIT 4";
+                        <?php
+                            $sql = "SELECT c.name, c.picture, u.username FROM computer as c, users as u WHERE c.entrycreatorfk = u.uid  ORDER BY RAND() LIMIT 10";
                             foreach ($pdo->query($sql) as $row) {
                                 echo "<li>";
                                 echo "<img src=\"".$row['picture']."\">\n";

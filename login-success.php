@@ -2,7 +2,7 @@
 session_start();
 include './pdo.php';
 $username = $_SESSION["username"];
-$getuserid = "select uid from user where username = '$username';";
+$getuserid = "select uid from users where username = '$username';";
 foreach ($pdo->query($getuserid) as $row) {
     $_SESSION["userid"] = (int)$row['uid'];
 }

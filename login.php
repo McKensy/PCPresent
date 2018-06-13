@@ -5,7 +5,7 @@
         die("Connection failed: " . $pdo->connect_error);
     }*/
     if(isset($_POST["register"])) {
-        $proof = "SELECT * FROM user WHERE username=?";
+        $proof = "SELECT * FROM users WHERE username=?";
         $proofstatement = $pdo->prepare($proof);
         $proofstatement->execute(array($_POST['username']));
         if ($proofstatement->fetch() > 0) {
@@ -13,7 +13,7 @@
             header("location: ./login.php");
         }else{
             $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-            $registersql = "insert into user (username, password) values (?, ?)";
+            $registersql = "insert into users (username, password) values (?, ?)";
             $statement = $pdo->prepare($registersql);
             $statement->execute(array($_POST['username'], $password));
             $_SESSION['username'] = $_POST['username'];
@@ -23,7 +23,7 @@
     }
     if(isset($_POST["login"])) {
         $username = $_POST['username'];
-        $verifylogin = "select * from user where username = '$username'";
+        $verifylogin = "select * from users where username = '$username'";
         $result = $pdo->query($verifylogin);
         $statement = $pdo->prepare($verifylogin);
         $statement->execute();

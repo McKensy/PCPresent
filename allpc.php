@@ -6,9 +6,9 @@
     $_SESSION['activenav'] = "allpc";
     if(isset($_POST["search"])) {
         $search = $_POST["search"];
-        $sql = "SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d.%m.%Y %H:%i') as created FROM computer as c, user as u WHERE c.entrycreatorfk = u.uid AND (c.name LIKE '%$search%' OR c.description LIKE '%$search%' OR u.username LIKE '%$search%')";
+        $sql = "SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d.%m.%Y %H:%i') as created FROM computer as c, users as u WHERE c.entrycreatorfk = u.uid AND (c.name LIKE '%$search%' OR c.description LIKE '%$search%' OR u.username LIKE '%$search%')";
     } else {
-        $sql = "SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d.%m.%Y %H:%i') as created FROM computer as c, user as u WHERE c.entrycreatorfk = u.uid";     
+        $sql = "SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d.%m.%Y %H:%i') as created FROM computer as c, users as u WHERE c.entrycreatorfk = u.uid";
     }
 ?>
 <!DOCTYPE html>
@@ -23,12 +23,12 @@
         <div class="nav-wrapper card-panel">
             <form action="./allpc.php" method="post"> <!-- TODO: Filters and Favorites-->
                 <div class="input-field">
-                <input id="search" type="search" name="search"  placeholder="Searching something?" maxlength="16" required>
+                <input id="search" type="search" name="search"  placeholder="Searching something? Enter one keyword" maxlength="16" required>
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
                 </div>
             </form>
-            <?php   
+            <?php
             if (isset($search)){
                     echo "<blockquote>Searching for \"$search\"";
                     echo '<a class="waves-effect waves-light blue btn right" href="allpc.php"><i class="material-icons right">settings_backup_restore</i>Reset Filter</a>';
