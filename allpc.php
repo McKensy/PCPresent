@@ -4,9 +4,12 @@
     @$username = $_SESSION['username'];
     unset($_SESSION['errormessage']);
     $_SESSION['activenav'] = "allpc";
-    if(isset($_POST["search"])) {
-        $search = $_POST["search"];
+    if(isset($_POST["Submit"])) {
+        $search = $_POST["keyword"];
         $sql = "SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d.%m.%Y %H:%i') as created FROM computer as c, users as u WHERE c.entrycreatorfk = u.uid AND (c.name LIKE '%$search%' OR c.description LIKE '%$search%' OR u.username LIKE '%$search%')";
+        if(isset($_POST['sort'])){
+            $sql .= $_POST['sort'];
+        }
     } else {
         $sql = "SELECT c.name, c.description, c.picture, u.username, DATE_FORMAT(c.created, '%d.%m.%Y %H:%i') as created FROM computer as c, users as u WHERE c.entrycreatorfk = u.uid";
     }
@@ -21,19 +24,36 @@
         <?php include './navbar.php'; ?>
         <div class="container">
         <div class="nav-wrapper card-panel">
-            <form action="./allpc.php" method="post"> <!-- TODO: Filters and Favorites-->
-                <div class="input-field">
-                <input id="search" type="search" name="search"  placeholder="Searching something? Enter one keyword" maxlength="16" required>
-                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
+            <form action="./allpc.php" method="post">
+                <?php if (!isset($search)){echo '<br /><br />';}?>
+                <div class="row">
+                    <div class="input-field col s12 m7 l7">
+                        <input id="keyword" type="search" name="keyword"  placeholder="Searching something? Enter one keyword" maxlength="16">
+                        <label class="label-icon" for="keyword"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                    <div class="input-field col s9 m4 l4">
+                        <select name="sort">
+                            <option value="" disabled selected>Sort by...</option>
+                            <option value=" ORDER BY c.created DESC">Newest</option>
+                            <option value=" ORDER BY c.created ASC">Oldest</option>
+                            <option value=" ORDER BY c.name ASC">PC Name A-Z</option>
+                            <option value=" ORDER BY c.name DESC">PC Name Z-A</option>
+                            <option value=" ORDER BY u.username ASC">Username A-Z</option>
+                            <option value=" ORDER BY u.username DESC">Username Z-A</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s3 m1 l1">
+                        <button class="waves-effect waves-light blue btn" type="Submit" name="Submit"><i class="material-icons">search</i></button>
+                    </div>
                 </div>
+                <?php
+                if (isset($search)){
+                        echo "<blockquote>Searching for \"$search\"";
+                        echo '<a class="waves-effect waves-light blue btn right" href="allpc.php"><i class="material-icons right">settings_backup_restore</i>Reset Filter</a></blockquote>';
+                    }
+                  ?>
             </form>
-            <?php
-            if (isset($search)){
-                    echo "<blockquote>Searching for \"$search\"";
-                    echo '<a class="waves-effect waves-light blue btn right" href="allpc.php"><i class="material-icons right">settings_backup_restore</i>Reset Filter</a>';
-                }
-              ?>
         </div>
             <?php
                 $check = $pdo->prepare($sql);
@@ -43,7 +63,7 @@
                 }else{
                     foreach ($pdo->query($sql) as $row) {
                         echo "<div class=\"card-panel\">";
-                        echo "<h3 class=\"center-align\">".$row['name']."</h3>";
+                        echo "<h5 class=\"center-align\">".$row['name']."</h5>";
                         echo '<div class="row">';
                         echo '<div class="col s12 m8 l6">';
                         echo "<p class=\"left-align\">".$row['description']."</p>";
@@ -77,10 +97,10 @@
             border-left: 5px solid #03a9f4;
         }
         </style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         <script>
             $(document).ready(function(){
                 $('.materialboxed').materialbox();
+                $('select').formSelect();
             });
         </script>
     </body>

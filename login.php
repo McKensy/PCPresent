@@ -1,9 +1,6 @@
 <?php
     session_start();
     include './pdo.php';
-    /*if ($pdo->connect_error) {
-        die("Connection failed: " . $pdo->connect_error);
-    }*/
     if(isset($_POST["register"])) {
         $proof = "SELECT * FROM users WHERE username=?";
         $proofstatement = $pdo->prepare($proof);
@@ -48,27 +45,7 @@
         <?php include './head.php'; ?>
     </head>
     <body class="grey darken-4">
-    <ul id="dropdown-desktop" class="dropdown-content light-blue">
-        <li><a class="white-text" href="index.php">Home</a></li>
-        <li><a class="white-text" href="allpc.php">All Computers</a></li>
-        <li><a class="white-text" href="addpc.php">Add a Computer</a></li>
-    </ul>
-    <nav>
-        <div class="nav-wrapper light-blue">
-            <a href="./index.php" class="brand-logo center" style="margin-left:10px"><i class="material-icons">desktop_windows</i>PCP</a>
-            <a href="#!" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="left hide-on-med-and-down">
-            <!-- Dropdown Trigger -->
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown-desktop"><?php if(!isset($username)){echo "Guest";}else{echo "$username";} ?> <i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><?php if(!isset($username)){echo "<a class=\"white-text\" href=\"login.php\"> Login";}else{echo "<a class=\"white-text\"href=\"logout.php\">Logout</a>";}?></li>
-            </ul>
-        </div>
-    </nav>
-    <ul class="sidenav light-blue" id="mobile-demo">
-        <li><a class="white-text" href="index.php">Home</a></li>
-        <li><a class="white-text" href="allpc.php">All Computers</a></li>
-        <li><a class="white-text" href="addpc.php">Add a Computer</a></li>
-    </ul>
+    <?php include './navbar.php'; ?>
         <div class="container">
             <div class="card-panel">
                 <h3 class="center">Login / Registration</h3>
@@ -95,13 +72,10 @@
                 ?>
             </div>
         </div>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script>
             $(document).ready(function(){
-                $(".dropdown-trigger").dropdown();
                 $('.sidenav').sidenav();
             });
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     </body>
 </html>

@@ -21,8 +21,8 @@
       $UploadType = $_FILES['UploadFileField']['type'];
       $UploadName = preg_replace("#[^a-z0-9.]#i", "", $UploadName);
       $UploadPath = "./src/$UploadName";
-      $pcdescription = $_POST["pcdescription"];
       $pcname = $_POST["pcname"];
+      $pcdescription = $_POST["pcdescription"];
       move_uploaded_file($UploadTmp, "src/$UploadName");
     }
 ?>
@@ -40,11 +40,12 @@
                 <form action="./addpc.php" method="post" enctype="multipart/form-data" name="FileUploadForm" id="FileUploadForm">
                 <div class="row">
                     <div class="input-field col l12 m12 s12">
-                        <input type="text" name="pcname" class="validate" id="pcname" maxlength="32" value="<?php echo @$pcname ?>"/>
+                        <input type="text" name="pcname" class="validate" id="pcname" maxlength="48" value="<?php echo @$pcname ?>" required/>
                         <label for="pcname">The name of your PC</label>
                     </div>
                     <div class="input-field col l5 m12 s12">
-                        <input type="text" name="pcpicture" class="validate" id="pcpicture" maxlength="192" value="<?php echo @$UploadPath ?>"/>
+                        <input type="text" name="pcpicture" class="validate" id="pcpicture" maxlength="192" required
+                        <?php if (isset($UploadPath)) {echo "value=\"$UploadPath\" readonly";}?>/>
                         <label for="pcpicture">Link to the picture</label>
                     </div>
                         <div class="col l5 m10 s9">
@@ -58,13 +59,13 @@
                               </div>
                             </div>
                         </div>
-                        <div class="input-field col l2 m2 s3">
-                            <button class="btn waves-effect waves-light light-blue uploadbtn right" type="Submit" name="UploadButton" id="UploadButton" value="Upload"><i class="large material-icons">file_upload</i></button>
+                        <div class="file-field col l2 m2 s3">
+                            <button class="btn waves-effect waves-light light-blue uploadbtn" type="Submit" name="UploadButton" id="UploadButton" value="Upload" formnovalidate>Upload<i class="material-icons right">file_upload</i></button>
                         </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea name="pcdescription" id="pcdescription" class="validate materialize-textarea" maxlength="2048" value="<?php echo @$pcdescription ?>"/></textarea>
+                        <textarea name="pcdescription" id="pcdescription" class="validate materialize-textarea" maxlength="2048" required/><?php echo @$pcdescription?></textarea>
                         <label for="pcdescription">Description of your PC</label>
                     </div>
                 </div>
@@ -73,7 +74,6 @@
                 </form>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         <script>
             $(document).ready(function(){
               $('.tooltipped').tooltip();
@@ -81,7 +81,7 @@
         </script>
         <style>
             .uploadbtn {
-                margin-top: 5px;
+                margin-top: 15px;
             }
         </style>
     </body>
